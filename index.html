@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Álvaro Cardenal — Financiación Pública & IA</title>
+<meta name="description" content="Financiación pública y automatización con IA para empresas. Consultoría de subvenciones, agentes de IA a medida y estrategia de crecimiento.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;600;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#1A1236; --accent:#8B5CF6; --accent-soft:rgba(139,92,246,.14);
+    --bone:#F2EFEA; --muted:rgba(242,239,234,.6);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--bone);font-family:'Inter',sans-serif;overflow-x:hidden}
+  ::selection{background:var(--accent);color:#fff}
+
+  /* Grano analógico */
+  .grain{position:fixed;inset:-50%;width:200%;height:200%;pointer-events:none;z-index:999;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+    animation:grain 8s steps(10) infinite}
+  @keyframes grain{
+    0%,100%{transform:translate(0,0)}10%{transform:translate(-5%,-8%)}30%{transform:translate(3%,-12%)}
+    50%{transform:translate(-9%,4%)}70%{transform:translate(7%,9%)}90%{transform:translate(-4%,6%)}}
+
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;
+    padding:22px 5vw;backdrop-filter:blur(12px);background:rgba(13,5,32,.55);border-bottom:1px solid rgba(139,92,246,.12)}
+  nav .logo{font-family:'Outfit';font-weight:800;letter-spacing:.06em;font-size:1rem}
+  nav .logo span{color:var(--accent)}
+  nav a.cta{color:var(--bone);text-decoration:none;font-size:.85rem;border:1px solid var(--accent);padding:10px 22px;border-radius:100px;
+    transition:all .35s cubic-bezier(.2,.8,.2,1)}
+  nav a.cta:hover{background:var(--accent);box-shadow:0 0 32px rgba(139,92,246,.5)}
+
+  /* HERO */
+  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;padding:0 4vw;text-align:center}
+  .hero .video-slot{position:absolute;inset:0;overflow:hidden;z-index:0}
+  .hero .video-slot::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 60%,rgba(26,18,54,.82) 100%)}
+  .video-ph{width:100%;height:100%;object-fit:cover;opacity:.92}
+  .placeholder-visual{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .aurora{position:absolute;width:70vmax;height:70vmax;border-radius:50%;filter:blur(90px);opacity:.5;mix-blend-mode:screen}
+  .aurora.a1{background:#8B5CF6;top:-20%;left:-10%;animation:float1 11s ease-in-out infinite alternate}
+  .aurora.a2{background:#4C1D95;bottom:-30%;right:-15%;animation:float2 14s ease-in-out infinite alternate}
+  .aurora.a3{background:#C4B5FD;top:30%;left:40%;width:30vmax;height:30vmax;opacity:.25;animation:float1 9s ease-in-out infinite alternate-reverse}
+  @keyframes float1{from{transform:translate(0,0) scale(1)}to{transform:translate(12vw,8vh) scale(1.25)}}
+  @keyframes float2{from{transform:translate(0,0) scale(1.15)}to{transform:translate(-10vw,-10vh) scale(.9)}}
+  .placeholder-visual .ring{width:46vmin;height:46vmin;border:2px solid rgba(139,92,246,.55);border-radius:50%;position:relative;animation:spin 14s linear infinite;z-index:1}
+  .placeholder-visual .ring::before{content:"";position:absolute;inset:-14%;border:1px dashed rgba(139,92,246,.3);border-radius:50%}
+  .placeholder-visual .ring::after{content:"";position:absolute;top:-7px;left:50%;width:14px;height:14px;border-radius:50%;background:var(--accent);box-shadow:0 0 34px 8px rgba(139,92,246,.8)}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .clip-badge{position:absolute;bottom:18px;right:18px;z-index:3;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--muted);border:1px dashed rgba(139,92,246,.5);border-radius:100px;padding:8px 16px;background:rgba(13,5,32,.6)}
+  .hero h1{font-family:'Outfit';font-weight:900;font-size:clamp(2.2rem,7vw,6rem);line-height:.95;letter-spacing:-.01em;z-index:2;display:flex;flex-wrap:wrap;justify-content:center;gap:0 .25em}
+  .hero .company{z-index:2;margin-top:14px;font-family:'Outfit';font-weight:800;font-size:clamp(1.4rem,4.2vw,3.2rem);letter-spacing:.12em;color:var(--accent);text-transform:uppercase;text-shadow:0 0 40px rgba(139,92,246,.45)}
+  .hero h1 .word{display:flex}
+  .hero h1 .ch{display:inline-block;transition:transform .1s linear;will-change:transform;
+    opacity:0;animation:chIn .7s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:var(--d,0s)}
+  @keyframes chIn{from{opacity:0;transform:translateY(60px) rotate(6deg)}to{opacity:1;transform:none}}
+  .hero .sub{z-index:2;margin-top:28px;font-size:clamp(.95rem,1.6vw,1.25rem);color:var(--muted);font-weight:300;letter-spacing:.14em;text-transform:uppercase}
+  .hero .sub b{color:var(--accent);font-weight:600}
+  .scroll-hint{position:absolute;bottom:34px;z-index:2;font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);animation:pulse 2.4s ease-in-out infinite}
+  @keyframes pulse{50%{opacity:.25;transform:translateY(6px)}}
+
+  section{padding:16vh 6vw;position:relative}
+  .eyebrow{color:var(--accent);font-size:.75rem;letter-spacing:.32em;text-transform:uppercase;margin-bottom:18px;font-weight:600}
+  h2{font-family:'Outfit';font-weight:800;font-size:clamp(2rem,5vw,4rem);line-height:1.04;letter-spacing:-.01em;max-width:22ch}
+
+  /* Contadores */
+  .counters{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:6vw;border-top:1px solid rgba(139,92,246,.18);border-bottom:1px solid rgba(139,92,246,.18);padding:9vh 6vw}
+  .counter .num{font-family:'Outfit';font-weight:900;font-size:clamp(2.6rem,6vw,5rem);color:var(--bone)}
+  .counter .num em{color:var(--accent);font-style:normal}
+  .counter .label{margin-top:8px;color:var(--muted);font-size:.9rem;letter-spacing:.08em;text-transform:uppercase}
+
+  /* Pilares */
+  .pillars{position:relative;overflow:hidden}
+  .pillars .bg-slot{position:absolute;inset:0;z-index:0;opacity:.38}
+  .pillars .bg-slot::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,var(--bg) 0%,transparent 30%,transparent 70%,var(--bg) 100%)}
+  .pillar-list{position:relative;z-index:2;margin-top:8vh;display:flex;flex-direction:column}
+  .pillar{display:grid;grid-template-columns:80px 1fr;gap:4vw;align-items:start;padding:6vh 0;border-top:1px solid rgba(237,233,227,.1);
+    opacity:0;transform:translateY(46px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
+  .pillar.visible{opacity:1;transform:none}
+  .pillar .idx{font-family:'Outfit';font-weight:300;font-size:2rem;color:var(--accent)}
+  .pillar h3{font-family:'Outfit';font-weight:600;font-size:clamp(1.3rem,2.6vw,2rem);margin-bottom:12px}
+  .pillar p{color:var(--muted);max-width:60ch;line-height:1.7;font-weight:300}
+
+  /* Casos */
+  .cases-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:32px;margin-top:8vh;position:relative;z-index:2}
+  .case-card{background:linear-gradient(160deg,rgba(139,92,246,.09),rgba(139,92,246,.02));border:1px solid rgba(139,92,246,.22);border-radius:20px;
+    padding:42px 34px;transform-style:preserve-3d;transition:transform .25s ease,box-shadow .35s ease;cursor:default;position:relative}
+  .case-card:hover{box-shadow:0 24px 70px -18px rgba(139,92,246,.45)}
+  .case-card .tag{display:inline-block;font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(139,92,246,.4);
+    padding:6px 14px;border-radius:100px;margin-bottom:26px}
+  .case-card h3{font-family:'Outfit';font-weight:600;font-size:1.35rem;line-height:1.25;margin-bottom:14px}
+  .case-card p{color:var(--muted);font-size:.95rem;line-height:1.7;font-weight:300}
+
+  /* Cierre */
+  .closing{text-align:center;padding:22vh 6vw}
+  .closing h2{margin:0 auto 6vh;max-width:18ch}
+  .closing h2 span{color:var(--accent)}
+  form{max-width:520px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+  input,textarea{background:rgba(237,233,227,.05);border:1px solid rgba(139,92,246,.25);border-radius:12px;padding:16px 20px;color:var(--bone);
+    font-family:'Inter';font-size:.95rem;transition:border .3s}
+  input:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+  button{font-family:'Outfit';font-weight:600;font-size:1rem;letter-spacing:.04em;background:var(--accent);color:#fff;border:none;border-radius:100px;
+    padding:18px;cursor:pointer;transition:all .35s}
+  button:hover{box-shadow:0 0 44px rgba(139,92,246,.6);transform:translateY(-2px)}
+
+  footer{padding:6vh 6vw;text-align:center;color:var(--muted);font-size:.8rem;border-top:1px solid rgba(139,92,246,.12)}
+  .reveal{opacity:0;transform:translateY(40px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.8,.2,1)}
+  .reveal.visible{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){.grain,.aurora,.ring{animation:none!important}.pillar,.reveal,.ch{opacity:1!important;transform:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<nav>
+  <div class="logo">ÁLVARO <span>CARDENAL</span></div>
+  <a class="cta" href="#contacto">Agendar diagnóstico</a>
+</nav>
+
+<!-- HERO — CLIP 1: Órbita en estudio. Sustituye el placeholder por:
+     <video class="video-ph" src="clip1-orbita.mp4" autoplay muted loop playsinline></video> -->
+<header class="hero">
+  <div class="video-slot" id="slot-clip1">
+    <!-- Clip 1 · Órbita en estudio (versión clara). Alternativa oscura:
+         https://d8j0ntlcm91z4.cloudfront.net/user_3GPbj5AOCgPQOixIdHFUBJeMB2x/hf_20260712_202843_ad225544-057f-43db-a752-1d7a043b13e5.mp4 -->
+    <video class="video-ph" src="https://d8j0ntlcm91z4.cloudfront.net/user_3GPbj5AOCgPQOixIdHFUBJeMB2x/hf_20260712_203440_e9e17141-ae55-42e5-9b73-87d978ff9716.mp4" autoplay muted loop playsinline></video>
+  </div>
+  <h1 id="headline" aria-label="Álvaro Cardenal"></h1>
+  <div class="company">Partners IA Solutions</div>
+  <p class="sub">Financiación Pública <b>&</b> Automatización con IA para Empresas</p>
+  <div class="scroll-hint">Scroll</div>
+</header>
+
+<!-- CONTADORES -->
+<div class="counters">
+  <div class="counter"><div class="num"><em>+</em><span data-target="200">0</span></div><div class="label">Expedientes gestionados</div></div>
+  <div class="counter"><div class="num"><em>+</em><span data-target="15">0</span>M€</div><div class="label">En ayudas conseguidas</div></div>
+  <div class="counter"><div class="num"><em>+</em><span data-target="50">0</span></div><div class="label">Automatizaciones IA desplegadas</div></div>
+</div>
+
+<!-- PILARES — CLIP 2: El Arquitecto. Sustituye el div .bg-slot por:
+     <video class="video-ph" src="clip2-arquitecto.mp4" autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video> -->
+<section class="pillars">
+  <div class="bg-slot" id="slot-clip2">
+    <video class="video-ph" src="https://d8j0ntlcm91z4.cloudfront.net/user_3GPbj5AOCgPQOixIdHFUBJeMB2x/hf_20260712_203421_a27ebb50-026e-48c6-bbb5-a501abf5990f.mp4" autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:1"></video>
+  </div>
+  <p class="eyebrow reveal">Pilares de servicio</p>
+  <h2 class="reveal">La infraestructura que financia y automatiza tu crecimiento</h2>
+  <div class="pillar-list">
+    <div class="pillar"><div class="idx">01</div><div>
+      <h3>Consultoría de Financiación Pública</h3>
+      <p>CDTI, SPRI, Hazitek, ENISA, Kit Digital y todo el mapa de ayudas estatal y foral. Detección de convocatorias, preparación de expedientes y justificación hasta el cobro.</p>
+    </div></div>
+    <div class="pillar"><div class="idx">02</div><div>
+      <h3>Soluciones y Agentes de IA a Medida</h3>
+      <p>Automatizaciones, asistentes y agentes de IA integrados en los procesos reales de pymes y consultoras: correo, tesorería, documentación y atención al cliente.</p>
+    </div></div>
+    <div class="pillar"><div class="idx">03</div><div>
+      <h3>Estrategia y Gerencia</h3>
+      <p>Del plan de financiación al crecimiento del negocio: control de gestión, rentabilidad, pipeline comercial y decisiones de dirección con datos.</p>
+    </div></div>
+  </div>
+</section>
+
+<!-- CASOS — CLIP 3: El Entrega-Valor. Mismo patrón de sustitución que el clip 2. -->
+<section class="pillars">
+  <div class="bg-slot" id="slot-clip3">
+    <video class="video-ph" src="https://d8j0ntlcm91z4.cloudfront.net/user_3GPbj5AOCgPQOixIdHFUBJeMB2x/hf_20260712_203423_adc8b332-1df0-467d-9a2d-f41d5ad2621a.mp4" autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:1"></video>
+  </div>
+  <p class="eyebrow reveal">Casos reales</p>
+  <h2 class="reveal">Sistemas que ya están funcionando</h2>
+  <div class="cases-grid">
+    <div class="case-card reveal"><span class="tag">Tesorería</span>
+      <h3>Calendario de cobros automatizado</h3>
+      <p>Consolidación automática de los cobros de subvenciones de toda la cartera de una consultora: fechas, importes y previsión mensual sin trabajo manual.</p></div>
+    <div class="case-card reveal"><span class="tag">Agente IA</span>
+      <h3>Asistente de correo inteligente</h3>
+      <p>Triaje por prioridad, clasificación por cliente y expediente, y borradores de respuesta con el tono adecuado para organismos, clientes y equipo.</p></div>
+    <div class="case-card reveal"><span class="tag">Fiscal</span>
+      <h3>Preparación asistida de declaraciones</h3>
+      <p>Sistema de IA que guía el perfilado del cliente, calcula deducciones forales y genera el borrador, el Excel auditable y el informe final.</p></div>
+  </div>
+</section>
+
+<!-- CIERRE -->
+<section class="closing" id="contacto">
+  <p class="eyebrow reveal">Empecemos</p>
+  <h2 class="reveal">Financia y automatiza <span>el futuro</span> de tu negocio</h2>
+  <form onsubmit="event.preventDefault();this.querySelector('button').textContent='Solicitud enviada ✓';">
+    <input type="text" placeholder="Nombre y empresa" required>
+    <input type="email" placeholder="Email" required>
+    <textarea rows="4" placeholder="¿Qué quieres financiar o automatizar?"></textarea>
+    <button type="submit">Agendar diagnóstico</button>
+  </form>
+</section>
+
+<footer>© 2026 Álvaro Cardenal — Financiación Pública & IA</footer>
+
+<script>
+// Titular letra a letra, deformación en scroll
+const words=["ÁLVARO","CARDENAL"];const h=document.getElementById('headline');let gi=0;
+words.forEach(w=>{const wd=document.createElement('span');wd.className='word';
+  [...w].forEach(c=>{const s=document.createElement('span');s.className='ch';s.textContent=c;
+    s.style.setProperty('--d',(gi++*0.045)+'s');
+    s.addEventListener('animationend',()=>{s.style.opacity=1;s.style.animation='none'},{once:true});
+    wd.appendChild(s)});h.appendChild(wd)});
+const chars=[...document.querySelectorAll('.ch')];
+let ticking=false;
+window.addEventListener('scroll',()=>{if(ticking)return;ticking=true;requestAnimationFrame(()=>{
+  const y=Math.min(window.scrollY/window.innerHeight,1.2);
+  chars.forEach((c,i)=>{const f=Math.sin(i*1.7)*y;c.style.transform=`translateY(${f*46}px) rotate(${f*7}deg) scale(${1-y*.08})`;});
+  ticking=false;});},{passive:true});
+
+// Contadores
+const ease=t=>1-Math.pow(1-t,3);
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;io.unobserve(e.target);
+  const el=e.target,t=+el.dataset.target,d=1600,st=performance.now();
+  (function tick(n){const p=Math.min((n-st)/d,1);el.textContent=Math.round(ease(p)*t);if(p<1)requestAnimationFrame(tick)})(st);
+}),{threshold:.6});
+document.querySelectorAll('[data-target]').forEach(el=>io.observe(el));
+
+// Reveals
+const rio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');rio.unobserve(e.target)}}),{threshold:.25});
+document.querySelectorAll('.reveal,.pillar').forEach(el=>rio.observe(el));
+
+// Hover 3D en tarjetas
+document.querySelectorAll('.case-card').forEach(card=>{
+  card.addEventListener('mousemove',e=>{const r=card.getBoundingClientRect();
+    
