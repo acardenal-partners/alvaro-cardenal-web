@@ -229,4 +229,9 @@ document.querySelectorAll('.reveal,.pillar').forEach(el=>rio.observe(el));
 // Hover 3D en tarjetas
 document.querySelectorAll('.case-card').forEach(card=>{
   card.addEventListener('mousemove',e=>{const r=card.getBoundingClientRect();
-    
+        const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+    card.style.transform=`perspective(800px) rotateY(${x*10}deg) rotateX(${-y*10}deg) translateY(-4px)`;});
+  card.addEventListener('mouseleave',()=>card.style.transform='');});
+</script>
+</body>
+</html>
