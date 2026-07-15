@@ -238,5 +238,6 @@ const tryPlay=()=>document.querySelectorAll('video').forEach(v=>{v.muted=true;if
 window.addEventListener('load',tryPlay);
 ['touchstart','click','scroll'].forEach(ev=>window.addEventListener(ev,tryPlay,{once:true,passive:true}));
 </script>
+<script type="module" src="avatar-widget.js"></script>
 </body>
 </html>
