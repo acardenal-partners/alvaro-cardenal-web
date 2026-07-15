@@ -14,7 +14,7 @@ style.textContent = `
   #la-widget-panel.open{display:flex}
   #la-widget-panel .la-head{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;
     border-bottom:1px solid rgba(139,92,246,.2);color:#F2EFEA;font-weight:600;font-size:.9rem}
-  #la-widget-panel .la-head button{background:none;border:none;color:#F2EFEA;font-size:1.1rem;cursor:pointer;opacity:.7}
+  #la-widget-panel .la-head button{background:none;border:none;color:#F2EFEA;font-size:1.1rem;cursor:pointer;opacity:.7;margin-left:10px}
   #la-widget-panel .la-head button:hover{opacity:1}
   #la-widget-video-wrap{position:relative;width:100%;aspect-ratio:9/12;background:#0D0520}
   #la-widget-video-wrap video{width:100%;height:100%;object-fit:cover;display:block}
@@ -39,7 +39,10 @@ panel.id = 'la-widget-panel';
 panel.innerHTML = `
   <div class="la-head">
     <span>Asistente de Álvaro Cardenal</span>
-    <button type="button" id="la-widget-close" aria-label="Cerrar">✕</button>
+    <div>
+      <button type="button" id="la-widget-mic" aria-label="Activar micrófono">🔇</button>
+      <button type="button" id="la-widget-close" aria-label="Cerrar">✕</button>
+    </div>
   </div>
   <div id="la-widget-video-wrap">
     <span id="la-widget-status">Conectando…</span>
@@ -57,6 +60,7 @@ const statusEl = panel.querySelector('#la-widget-status');
 const form = panel.querySelector('#la-widget-form');
 const input = panel.querySelector('#la-widget-input');
 const closeBtn = panel.querySelector('#la-widget-close');
+const micBtn = panel.querySelector('#la-widget-mic');
 
 let session = null;
 let keepAliveTimer = null;
@@ -72,12 +76,15 @@ async function startSession() {
     if (!tokenRes.ok) throw new Error('No se pudo obtener el token de sesión');
     const { sessionToken } = await tokenRes.json();
 
-    session = new LiveAvatarSession(sessionToken);
+    session = new LiveAvatarSession(sessionToken, { voiceChat: { defaultMuted: true } });
 
     session.on('session.stream_ready', () => {
       statusEl.style.display = 'none';
       session.attach(videoEl);
     });
+
+    session.voiceChat.on('MUTED', () => { micBtn.textContent = '🔇'; });
+    session.voiceChat.on('UNMUTED', () => { micBtn.textContent = '🎤'; });
 
     await session.start();
 
@@ -97,7 +104,17 @@ function stopSession() {
   keepAliveTimer = null;
   session?.stop?.();
   session = null;
+  micBtn.textContent = '🔇';
 }
+
+micBtn.addEventListener('click', () => {
+  if (!session) return;
+  if (session.voiceChat.isMuted) {
+    session.voiceChat.unmute();
+  } else {
+    session.voiceChat.mute();
+  }
+});
 
 btn.addEventListener('click', () => {
   panel.classList.add('open');
