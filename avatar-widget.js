@@ -1,7 +1,6 @@
 import { LiveAvatarSession } from 'https://esm.sh/@heygen/liveavatar-web-sdk';
 
-// TODO: sustituir por la URL real del endpoint tras desplegar api/liveavatar-token.js en Vercel
-const TOKEN_ENDPOINT = 'https://TU-PROYECTO-VERCEL.vercel.app/api/liveavatar-token';
+const TOKEN_ENDPOINT = 'https://alvaro-cardenal-web.vercel.app/api/liveavatar-token';
 
 const style = document.createElement('style');
 style.textContent = `
