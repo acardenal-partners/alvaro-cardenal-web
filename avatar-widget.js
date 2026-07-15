@@ -1,6 +1,6 @@
 import { LiveAvatarSession } from 'https://esm.sh/@heygen/liveavatar-web-sdk';
 
-const TOKEN_ENDPOINT = 'https://alvaro-cardenal-web.vercel.app/api/liveavatar-token';
+const TOKEN_ENDPOINT = 'https://alvaro-cardenal-web-kohl.vercel.app/api/liveavatar-token';
 
 const style = document.createElement('style');
 style.textContent = `
