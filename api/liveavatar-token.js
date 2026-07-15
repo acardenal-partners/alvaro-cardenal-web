@@ -25,7 +25,7 @@ module.exports = async (req, res) => {
       body: JSON.stringify({
         mode: 'FULL',
         avatar_id: '26393b8e-e944-4367-98ef-e2bc75c4b792',
-        is_sandbox: true,
+        is_sandbox: false,
         avatar_persona: {
           voice_id: 'b139a8fe-7240-4454-ac37-8c68aebcee41',
           context_id: '8b8a8782-7edb-4790-8fd3-34eee157753e',
