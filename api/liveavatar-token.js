@@ -24,10 +24,10 @@ module.exports = async (req, res) => {
       },
       body: JSON.stringify({
         mode: 'FULL',
-        avatar_id: '26393b8e-e944-4367-98ef-e2bc75c4b792',
+        avatar_id: '200eba85-74c0-4210-8670-81ceab4efd0d',
         is_sandbox: false,
         avatar_persona: {
-          voice_id: 'b139a8fe-7240-4454-ac37-8c68aebcee41',
+          voice_id: 'a4d4788b-3a44-4d34-b350-9450050a2fb8',
           context_id: '8b8a8782-7edb-4790-8fd3-34eee157753e',
           language: 'es',
         },
