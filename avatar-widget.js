@@ -72,13 +72,14 @@ async function startSession() {
     if (!tokenRes.ok) throw new Error('No se pudo obtener el token de sesión');
     const { sessionToken } = await tokenRes.json();
 
-    session = new LiveAvatarSession({ token: sessionToken });
+    session = new LiveAvatarSession(sessionToken);
 
-    session.on('SESSION_STREAM_READY', () => {
+    session.on('session.stream_ready', () => {
       statusEl.style.display = 'none';
+      session.attach(videoEl);
     });
 
-    await session.attach(videoEl);
+    await session.start();
 
     keepAliveTimer = setInterval(() => {
       session?.keepAlive?.();
@@ -94,6 +95,7 @@ async function startSession() {
 function stopSession() {
   if (keepAliveTimer) clearInterval(keepAliveTimer);
   keepAliveTimer = null;
+  session?.stop?.();
   session = null;
 }
 
